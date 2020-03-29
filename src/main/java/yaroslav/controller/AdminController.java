@@ -2,10 +2,7 @@ package yaroslav.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import yaroslav.model.User;
 import yaroslav.service.interfaces.UserService;
@@ -30,7 +27,7 @@ public class AdminController {
     @GetMapping(value = "/admin")
     public ModelAndView admin(){
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("adminUsers");
+        modelAndView.setViewName("/admin/adminUsers");
         modelAndView.addObject("usersList", userService.getAllUsers());
         return modelAndView;
     }
@@ -80,8 +77,8 @@ public class AdminController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/admin/delete/{id}")
-    public ModelAndView deleteUser(@PathVariable("id") Long id){
+    @PostMapping(value = "/admin/deleteUser")
+    public ModelAndView deleteUser(@RequestParam("id") Long id){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/admin");
         userService.deleteUser(id);
