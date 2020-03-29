@@ -5,10 +5,13 @@
 </head>
 <body>
 <h4>Добавить пользователя</h4>
+
 <font color="red" size="14"><bold>${message}</bold></font>
-<form action="/admin/add" method="post">
+
+<form action="/admin/addUser" method="post">
     <input type="text" name="username" placeholder="username" required/>
-    <input type="text" name="password" placeholder="password" required/>
+    <input type="password" name="password" placeholder="password" required/>
+    <input type="email" name="email" placeholder="email" required/>
     <input type="submit" value="Добавить пользователя" />
 </form>
 

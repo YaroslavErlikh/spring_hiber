@@ -17,7 +17,9 @@ public class UserServiceImpl implements UserService {
 
     private ExampleMatcher usernameMatcher = ExampleMatcher.matching()
             .withIgnorePaths("id")
-            .withMatcher("username", ignoreCase());
+            .withMatcher("username", ignoreCase())
+            .withIgnorePaths("password")
+            .withIgnorePaths("email");
 
     private UserRepository userRepository;
 

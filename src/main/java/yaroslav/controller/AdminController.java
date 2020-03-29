@@ -43,6 +43,13 @@ public class AdminController {
     @PostMapping(value = "/admin/editUser")
     public ModelAndView editUser(@ModelAttribute("user") User user){
         ModelAndView modelAndView = new ModelAndView();
+
+        if (userService.userIsExist(user)){
+            modelAndView.addObject("message", "Имя занято");
+            modelAndView.setViewName("/admin/editUser");
+            return modelAndView;
+        }
+
         modelAndView.setViewName("redirect:/admin");
         userService.edit(user);
         return modelAndView;
@@ -62,6 +69,7 @@ public class AdminController {
 
         if (userService.userIsExist(user)){
             modelAndView.addObject("message", "Имя занято");
+            modelAndView.setViewName("/admin/addUser");
             return modelAndView;
         }
         modelAndView.setViewName("redirect:/admin");
