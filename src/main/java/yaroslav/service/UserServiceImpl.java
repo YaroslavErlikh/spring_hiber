@@ -15,6 +15,10 @@ import static org.springframework.data.domain.ExampleMatcher.GenericPropertyMatc
 @Service
 public class UserServiceImpl implements UserService {
 
+    private ExampleMatcher usernameMatcher = ExampleMatcher.matching()
+            .withIgnorePaths("id")
+            .withMatcher("username", ignoreCase());
+
     private UserRepository userRepository;
 
     @Autowired
@@ -34,10 +38,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean addUser(User user) {
-
-        ExampleMatcher usernameMatcher = ExampleMatcher.matching()
-                .withIgnorePaths("id")
-                .withMatcher("username", ignoreCase());
 
         if (userRepository.exists(Example.of(user, usernameMatcher))){
             return false;
@@ -65,5 +65,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public boolean userIsExist(User user) {
+        return userRepository.exists(Example.of(user, usernameMatcher));
     }
 }
